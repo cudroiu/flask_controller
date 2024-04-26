@@ -39,14 +39,14 @@ class OwrtRouter():
         return response
             
                 
-    def startWifiStatus(self):
+    def startWifi(self):
         url = f'{self.base_url}/sys'
         data = { "jsonrpc": "2.0", "id": self.req_id, "method": "exec", "params": ["/scripts/start_wifi.sh"] }
         result = self._request(method='post', url=url, data=data)
         if result.status_code != 200 or 'error' in result.json():
             raise OwrtException(f'Received status code {result.status_code} when trying to start wifi: {result.text}')
 
-    def stopWifiStatus(self):
+    def stopWifi(self):
         url = f'{self.base_url}/sys'
         data = { "jsonrpc": "2.0", "id": self.req_id, "method": "exec", "params": ["/scripts/stop_wifi.sh"] }
         result = self._request(method='post', url=url, data=data)
