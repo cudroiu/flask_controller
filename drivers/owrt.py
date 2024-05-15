@@ -45,6 +45,8 @@ class OwrtRouter():
         result = self._request(method='post', url=url, data=data)
         if result.status_code != 200 or 'error' in result.json():
             raise OwrtException(f'Received status code {result.status_code} when trying to start wifi: {result.text}')
+        else:
+            return result.status_code
 
     def stopWifi(self):
         url = f'{self.base_url}/sys'
@@ -53,6 +55,9 @@ class OwrtRouter():
         self.req_id += 1  # TODO increment req_id in a decorator
         if result.status_code != 200 or 'error' in result.json():
             raise OwrtException(f'Received status code {result.status_code} when trying to stop wifi: {result.text}')
+        else:
+            return result.status_code
+
 
     def getWifiStatus(self):
         url = f'{self.base_url}/sys'
