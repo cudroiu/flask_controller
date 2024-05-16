@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 from models.wifi_status import WifiStatus
 from validators.validators import validate_wifi_status
-from config import ROUTER
+from config import ROUTER, CHANGE_USER
 import router_utils
 
 
@@ -37,7 +37,7 @@ class WifiStatusResource(Resource):
             return {'errors': messages}, HTTPStatus.BAD_REQUEST
         wifi_status = WifiStatus()
         wifi_status.status = data['status']
-        wifi_status.change_user = 'iudroiu'
+        wifi_status.change_user = CHANGE_USER
         if data['status'] == True:
             result = self.router.startWifi()
             self.log.info(f'Received status code {result} from router when trying to start wifi')
