@@ -1,12 +1,22 @@
-# TODO Implement WifiStatus class as a singleton
-
 from extensions import db
+
+
 class WifiStatus(db.Model):
     __tablename__ = 'wifi_status'
     change_id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.Boolean)
-    last_db_update = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
-    last_status_update = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
+    last_db_update = db.Column(
+        db.DateTime(),
+        nullable=False,
+        default=db.func.current_timestamp().op('AT TIME ZONE')('EEST'),
+        onupdate=db.func.current_timestamp().op('AT TIME ZONE')('EEST')
+    )
+    last_status_update = db.Column(
+        db.DateTime(),
+        nullable=False,
+        default=db.func.current_timestamp().op('AT TIME ZONE')('EEST'),
+        onupdate=db.func.current_timestamp().op('AT TIME ZONE')('EEST')
+    )
     change_user = db.Column(db.String(50)) 
 
     def __init__(self):
